@@ -36,7 +36,7 @@ jobs:
           context: .
           push: true
           # 【需替换】替换成你的GitHub用户名
-          tags: ghcr.io/【你的GitHub用户名】/webhook2feishu:latest
+          tags: ghcr.io/always1ov/webhook2feishu:latest
           # 缓存配置（加速下次构建）
           cache-from: type=gha
           cache-to: type=gha,mode=max
