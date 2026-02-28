@@ -1,10 +1,18 @@
-# 新建docker-compose.yml
 version: "3.8"
+
 services:
   webhook2feishu:
-    image: ghcr.io/always1ov/webhook2feishu:latest
-    ports:
-      - "38080:8080"
+    # 【必改】替换为你的 GitHub 用户名
+    image: ghcr.io/你的GitHub用户名/webhook2feishu:latest
+    network_mode: host  # host 模式（无 ports 冲突）
     environment:
-      - FEISHU_WEBHOOK_URL=你的飞书地址
-    restart: always
+      # 【必改】你的飞书 Webhook 地址
+      - FEISHU_WEBHOOK_URL=https://open.feishu.cn/open-apis/bot/v2/hook/你的真实地址
+      # 【自定义端口】改成你想使用的端口（比如 8081，避开 8080）
+      - APP_PORT=8081
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
