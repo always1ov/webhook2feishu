@@ -1,12 +1,20 @@
-version: "3"
+version: "3.8"
 
 services:
   webhook2feishu:
+    # 构建镜像（本地构建）
     build: .
-    image: ghcr.io/你的GitHub用户名/webhook2feishu:latest  # 替换成你的用户名
+    # 或使用GitHub镜像（构建后替换）：
+    # image: ghcr.io/【你的GitHub用户名】/webhook2feishu:latest
     ports:
-      - "8080:8080"
-    # 核心：配置飞书Webhook地址环境变量
+      - "8080:8080"  # 宿主机端口:容器端口
     environment:
-      - FEISHU_WEBHOOK_URL=https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxx  # 替换成你的地址
-    restart: always
+      # 【需替换】这里填写你的飞书机器人Webhook地址
+      - FEISHU_WEBHOOK_URL=https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxxxxxxxx
+    restart: always  # 容器异常退出自动重启
+    # 可选：日志配置（方便排查问题）
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
